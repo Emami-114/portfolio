@@ -1,0 +1,30 @@
+.app-container {
+  position: relative;
+  z-index: 1;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0, 255, 65, 0.03), transparent);
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.footer-bracket {
+  color: var(--green);
+}
+
+.footer-sep {
+  color: var(--text-dim);
+}
+
+.footer-tag {
+  color: var(--cyan-dim);
+}
