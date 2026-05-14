@@ -1,5 +1,6 @@
 .agents
 .claude
+CV.md
 # Logs
 logs
 *.log

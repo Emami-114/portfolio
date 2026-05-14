@@ -121,10 +121,10 @@ export default function Hero() {
               <span className="status-dot active" /> SYSTEM_ONLINE
             </span>
             <span className="status-item">
-              <span className="status-dot" /> ENCRYPTION_ACTIVE
+              <span className="status-dot cyan" /> ENCRYPTION_AES256
             </span>
             <span className="status-item">
-              <span className="status-dot" /> THREAT_LEVEL: LOW
+              <span className="status-dot warning" /> THREAT_LEVEL: LOW
             </span>
           </div>
         </div>

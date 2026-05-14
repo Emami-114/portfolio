@@ -15,7 +15,7 @@
 
 .ct-header {
   padding: 0.7rem 1.2rem;
-  background: rgba(0, 255, 65, 0.05);
+  background: rgba(0, 170, 255, 0.05);
   border-bottom: 1px solid var(--border);
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -58,7 +58,7 @@
   color: var(--green);
   flex-shrink: 0;
   transition: all 0.2s;
-  background: rgba(0, 255, 65, 0.04);
+  background: rgba(0, 170, 255, 0.05);
 }
 
 .channel-item:hover .ch-icon {

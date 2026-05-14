@@ -31,8 +31,8 @@
 }
 
 .skill-group.group-yellow:hover {
-  border-color: rgba(255, 200, 0, 0.5);
-  box-shadow: 0 0 20px rgba(255, 200, 0, 0.1);
+  border-color: rgba(255, 123, 53, 0.5);
+  box-shadow: 0 0 20px rgba(255, 123, 53, 0.12);
 }
 
 .group-header {
@@ -124,7 +124,7 @@
 .skill-track {
   position: relative;
   height: 4px;
-  background: rgba(0, 255, 65, 0.08);
+  background: rgba(0, 170, 255, 0.08);
   border-radius: 2px;
   overflow: visible;
 }
@@ -137,7 +137,7 @@
 
 .fill-green { background: linear-gradient(90deg, var(--green-dim), var(--green)); }
 .fill-cyan { background: linear-gradient(90deg, var(--cyan-dim), var(--cyan)); }
-.fill-yellow { background: linear-gradient(90deg, #c88000, #ffc800); }
+.fill-yellow { background: linear-gradient(90deg, #cc4a1a, #ff7b35); }
 
 .skill-glow {
   position: absolute;

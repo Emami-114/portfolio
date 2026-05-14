@@ -5,20 +5,21 @@
 }
 
 :root {
-  --green: #00ff41;
-  --green-dim: #00cc33;
-  --green-glow: rgba(0, 255, 65, 0.3);
-  --cyan: #00d4ff;
-  --cyan-dim: #0099bb;
-  --bg-black: #030a03;
-  --bg-dark: #060f06;
-  --bg-card: rgba(0, 255, 65, 0.04);
-  --bg-card-hover: rgba(0, 255, 65, 0.08);
-  --border: rgba(0, 255, 65, 0.2);
-  --border-hover: rgba(0, 255, 65, 0.6);
-  --text-primary: #e0ffe0;
-  --text-secondary: #80b380;
-  --text-dim: #3a6b3a;
+  --green: #00aaff;
+  --green-dim: #0077cc;
+  --green-glow: rgba(0, 170, 255, 0.22);
+  --cyan: #00e5ff;
+  --cyan-dim: #00a8bb;
+  --orange: #ff7b35;
+  --bg-black: #04070e;
+  --bg-dark: #070c18;
+  --bg-card: rgba(0, 170, 255, 0.04);
+  --bg-card-hover: rgba(0, 170, 255, 0.08);
+  --border: rgba(0, 170, 255, 0.15);
+  --border-hover: rgba(0, 170, 255, 0.5);
+  --text-primary: #c8daee;
+  --text-secondary: #5a7896;
+  --text-dim: #1e3048;
   --font-mono: 'Share Tech Mono', monospace;
   --font-display: 'Orbitron', sans-serif;
   --font-body: 'Rajdhani', sans-serif;
@@ -30,9 +31,7 @@ html {
   scrollbar-color: var(--green-dim) var(--bg-dark);
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-dark); }
 ::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
 
@@ -42,6 +41,16 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='64' viewBox='0 0 56 64'%3E%3Cpath d='M28 2L54 17v30L28 62 2 47V17L28 2z' fill='none' stroke='rgba(0,150,255,0.03)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 56px 64px;
+  pointer-events: none;
+  z-index: 0;
 }
 
 a {

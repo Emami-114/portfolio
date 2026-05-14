@@ -53,8 +53,8 @@
 
 .project-card.type-yellow:hover,
 .project-card.type-yellow.expanded {
-  border-color: rgba(255, 200, 0, 0.4);
-  box-shadow: 0 0 20px rgba(255, 200, 0, 0.1);
+  border-color: rgba(255, 123, 53, 0.4);
+  box-shadow: 0 0 20px rgba(255, 123, 53, 0.12);
 }
 
 .card-top { flex: 1; }
@@ -85,7 +85,7 @@
 
 .badge-green { background: rgba(0, 255, 65, 0.12); color: var(--green); border: 1px solid rgba(0, 255, 65, 0.2); }
 .badge-cyan { background: rgba(0, 212, 255, 0.1); color: var(--cyan); border: 1px solid rgba(0, 212, 255, 0.2); }
-.badge-yellow { background: rgba(255, 200, 0, 0.08); color: #ffc800; border: 1px solid rgba(255, 200, 0, 0.2); }
+.badge-yellow { background: rgba(255, 123, 53, 0.08); color: #ff7b35; border: 1px solid rgba(255, 123, 53, 0.2); }
 
 .card-title {
   font-family: var(--font-display);
@@ -121,7 +121,7 @@
 }
 
 .project-card:hover .tag {
-  border-color: rgba(0, 255, 65, 0.3);
+  border-color: rgba(0, 170, 255, 0.3);
   color: var(--text-primary);
 }
 

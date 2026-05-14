@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react'
 import './MatrixRain.css'
 
-const CHARS = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモ'
+const NODE_COUNT = 55
+const MAX_DIST = 165
+const PACKET_INTERVAL = 28
 
 export default function MatrixRain() {
   const canvasRef = useRef(null)
@@ -18,36 +20,98 @@ export default function MatrixRain() {
     resize()
     window.addEventListener('resize', resize)
 
-    const fontSize = 14
-    let columns = Math.floor(canvas.width / fontSize)
-    const drops = Array(columns).fill(1)
+    const nodes = []
+    const packets = []
+
+    const init = () => {
+      nodes.length = 0
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          t: Math.random() * Math.PI * 2,
+          ts: 0.012 + Math.random() * 0.018,
+        })
+      }
+    }
+    init()
+
+    const spawnPacket = () => {
+      const a = Math.floor(Math.random() * nodes.length)
+      let b = Math.floor(Math.random() * nodes.length)
+      while (b === a) b = Math.floor(Math.random() * nodes.length)
+      const d = Math.hypot(nodes[a].x - nodes[b].x, nodes[a].y - nodes[b].y)
+      if (d < MAX_DIST) {
+        packets.push({ a, b, t: 0, speed: 0.01 + Math.random() * 0.013 })
+      }
+    }
+
+    let tick = 0
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(3, 10, 3, 0.05)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      tick++
 
-      columns = Math.floor(canvas.width / fontSize)
-      while (drops.length < columns) drops.push(Math.random() * canvas.height)
+      if (tick % PACKET_INTERVAL === 0) spawnPacket()
 
-      ctx.font = `${fontSize}px 'Share Tech Mono', monospace`
+      for (const n of nodes) {
+        n.x += n.vx
+        n.y += n.vy
+        n.t += n.ts
+        if (n.x < 0 || n.x > canvas.width) n.vx *= -1
+        if (n.y < 0 || n.y > canvas.height) n.vy *= -1
+      }
 
-      for (let i = 0; i < drops.length; i++) {
-        const char = CHARS[Math.floor(Math.random() * CHARS.length)]
-        const alpha = Math.random() > 0.95 ? 1 : 0.15 + Math.random() * 0.3
-        ctx.fillStyle = `rgba(0, 255, 65, ${alpha})`
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize)
-
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y)
+          if (d < MAX_DIST) {
+            const alpha = (1 - d / MAX_DIST) * 0.14
+            ctx.beginPath()
+            ctx.moveTo(nodes[i].x, nodes[i].y)
+            ctx.lineTo(nodes[j].x, nodes[j].y)
+            ctx.strokeStyle = `rgba(0, 140, 255, ${alpha})`
+            ctx.lineWidth = 0.8
+            ctx.stroke()
+          }
         }
-        drops[i]++
+      }
+
+      for (let i = packets.length - 1; i >= 0; i--) {
+        const p = packets[i]
+        p.t += p.speed
+        if (p.t >= 1) { packets.splice(i, 1); continue }
+        const na = nodes[p.a], nb = nodes[p.b]
+        const x = na.x + (nb.x - na.x) * p.t
+        const y = na.y + (nb.y - na.y) * p.t
+        const grd = ctx.createRadialGradient(x, y, 0, x, y, 6)
+        grd.addColorStop(0, 'rgba(0, 229, 255, 0.85)')
+        grd.addColorStop(1, 'rgba(0, 140, 255, 0)')
+        ctx.beginPath()
+        ctx.arc(x, y, 6, 0, Math.PI * 2)
+        ctx.fillStyle = grd
+        ctx.fill()
+        ctx.beginPath()
+        ctx.arc(x, y, 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(210, 245, 255, 0.95)'
+        ctx.fill()
+      }
+
+      for (const n of nodes) {
+        const pulse = (Math.sin(n.t) + 1) / 2
+        ctx.beginPath()
+        ctx.arc(n.x, n.y, n.r + pulse * 0.6, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(0, 160, 255, ${0.18 + pulse * 0.28})`
+        ctx.fill()
       }
 
       animId = requestAnimationFrame(draw)
     }
 
     animId = requestAnimationFrame(draw)
-
     return () => {
       cancelAnimationFrame(animId)
       window.removeEventListener('resize', resize)
